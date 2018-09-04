@@ -4,6 +4,8 @@ module.exports = function(application){
 	});
 
 	application.post("/login", function(request, response){
-		application.app.controllers.index.login(application, request, response);
+		application.app.controllers.jogo.login(application, request, response);
 	});
+
+	
 }
