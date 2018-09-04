@@ -3,22 +3,26 @@ function cadastroDAO (connection){
 }
 
 cadastroDAO.prototype.cadastrar = function(usuario){
+	var dbo = this._connection.db("got");
 
-	var collecion = this._connection.db("got").collection("usuarios");
-   	collecion.insertOne({
-				nome    : usuario[0].nome,
-				senha   : usuario[0].senha,
-				usuario : usuario[0].usuario,
-				casa    : usuario[0].casa,
-				moeda   :15,
-				temor   : Math.floor(Math.random()*1000),
-				sabedoria :Math.floor(Math.random()*1000),
-				comercio : Math.floor(Math.random()*1000),
-				magia    : Math.floor(Math.random()*1000)
-			});
+    console.log(usuario);
+
+    var obj = {
+		nome    : usuario.nome,
+		senha   : usuario.senha,
+		usuario : usuario.usuario,
+		casa    : usuario.casa,
+		moeda   :15,
+		temor   : Math.floor(Math.random()*1000),
+		sabedoria :Math.floor(Math.random()*1000),
+		comercio : Math.floor(Math.random()*1000),
+		magia    : Math.floor(Math.random()*1000)
+	};
+	dbo.collection("usuarios").insertOne(obj, function(err, res) {
+		if (err) throw err;
+		//dbo.close();
+	});
 }
-   
-
 
 module.exports = function(){
 	return cadastroDAO;

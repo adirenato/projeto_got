@@ -18,14 +18,8 @@ module.exports.cadastrar = function(request, response, application){
 	}
     
 
+    var UsuarioDAO = new application.app.models.cadastroDAO(application.get('mongoDB'));
 
-    
-
-    var UsuarioDAO = new application.app.models.cadastroDAO();
-
-    UsuarioDAO.cadastrar(bodyparse, function(error, result){
-         
-    }); 
-	
-	response.send("pode cadastrar e mudar de página");	
+    UsuarioDAO.cadastrar(bodyparse, function(error, result){}); 
+    response.send("pode cadastrar e mudar de página");	
 }
