@@ -16,10 +16,13 @@ module.exports.cadastrar = function(request, response, application){
 		response.render("cadastro", {validacao : error, usuarios : bodyparse});
 		return;
 	}
-    
-
     var UsuarioDAO = new application.app.models.cadastroDAO(application.get('mongoDB'));
+		   
+		UsuarioDAO.cadastrar(bodyparse, function(err, result){
+			if(err) console.log(err);
+				  
+		}); 
 
-    UsuarioDAO.cadastrar(bodyparse, function(error, result){}); 
-    response.send("pode cadastrar e mudar de página");	
+	response.render("jogo");
+      
 }

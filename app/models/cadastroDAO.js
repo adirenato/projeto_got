@@ -5,7 +5,7 @@ function cadastroDAO (connection){
 cadastroDAO.prototype.cadastrar = function(usuario){
 	var dbo = this._connection.db("got");
 
-    console.log(usuario);
+   // console.log(usuario);
 
     var obj = {
 		nome    : usuario.nome,

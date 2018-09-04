@@ -13,3 +13,7 @@ module.exports.jogo = function(application, request, response){
 module.exports.sair = function(application, request, response){
 	response.render("/");
 }
+
+module.exports.logar = function(application, request, response){
+	
+}
