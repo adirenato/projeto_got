@@ -16,7 +16,7 @@ module.exports.cadastrar = function(request, response, application){
 		response.render("cadastro", {validacao : error, usuarios : bodyparse});
 		return;
 	}
-    var UsuarioDAO = new application.app.models.cadastroDAO(application.get('mongoDB'));
+    var UsuarioDAO = new application.app.models.cadastroDAO(application.get('connection'));
 		   
 		UsuarioDAO.cadastrar(bodyparse, function(err, result){
 			if(err) console.log(err);

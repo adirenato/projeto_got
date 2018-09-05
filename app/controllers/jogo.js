@@ -7,11 +7,23 @@ module.exports.aldeoes = function(application, request, response){
 }
 
 module.exports.jogo = function(application, request, response){
-	response.render("jogo");
+	if(request.session.autenticado)
+	{
+		var usuario = request.session.usuario;
+		var casa    = request.session.casa;
+		model= application.app.models.jogoDAO(application.get('connection'));
+		model.iniciaJogo(response, usuario);
+	}else{
+		response.send("Usuário não autenticado");	
+	}
+	
 }
 
 module.exports.sair = function(application, request, response){
+
+	
 	if (request.session.destroy()) response.render("/", {validacao:{}});
+	console.log("sessão destruida");
 	
 }
 
@@ -28,9 +40,10 @@ module.exports.login = function(application, request, response){
 		return;
 	}
 	
-	var jogoDAO = new application.app.controllers.jogoDAO(application.get('mongoDB'));
+	var jogoDAO = new application.app.models.jogoDAO(application.get('connection'));
 	
-	jogoDAO.login(bodyparse, function(err, result){
+	jogoDAO.login(bodyparse, request, response, function(err, result){
+		if(err) throw console.log(err);
 
 	});
 	
