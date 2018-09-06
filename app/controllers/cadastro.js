@@ -1,5 +1,5 @@
 module.exports.cadastro = function(request, response){
-	response.render("cadastro",{validacao:{}, campos :{}});
+	response.render("cadastro",{validacao:{}, usuarios :{}});
 }
 
 module.exports.cadastrar = function(request, response, application){
@@ -16,13 +16,7 @@ module.exports.cadastrar = function(request, response, application){
 		response.render("cadastro", {validacao : error, usuarios : bodyparse});
 		return;
 	}
-    var UsuarioDAO = new application.app.models.cadastroDAO(application.get('connection'));
-		   
-		UsuarioDAO.cadastrar(bodyparse, function(err, result){
-			if(err) console.log(err);
-				  
-		}); 
-
-	response.render("jogo");
+    var cadastroDAO = new application.app.models.cadastroDAO(application.get('connection'));
+	cadastroDAO.cadastrar(bodyparse, request, response);
       
 }

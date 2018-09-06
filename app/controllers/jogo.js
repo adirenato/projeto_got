@@ -7,14 +7,9 @@ module.exports.aldeoes = function(application, request, response){
 }
 
 module.exports.jogo = function(application, request, response){
-	
 	if(request.session.autenticado)
 	{
 		response.send("Usuário pode prosseguir para o processo de inícia o jogo");	
-		//var usuario = request.session.usuario;
-		//var casa    = request.session.casa;
-		//model= application.app.models.jogoDAO(application.get('connection'));
-		//model.iniciaJogo(response, usuario);
 	}else{
 		response.send("Usuário não autenticado");	
 	}

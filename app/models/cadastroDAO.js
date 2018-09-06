@@ -2,7 +2,7 @@ function cadastroDAO (connection){
 	this._connection = connection;
 }
 
-cadastroDAO.prototype.cadastrar = function(usuario){
+cadastroDAO.prototype.cadastrar = function(usuario, resquest, response){
 	var dbo = this._connection.db("got");
 
    // console.log(usuario);
@@ -20,8 +20,12 @@ cadastroDAO.prototype.cadastrar = function(usuario){
 	};
 	dbo.collection("usuarios").insertOne(obj, function(err, res) {
 		if (err) throw err;
-		//dbo.close();
+		resquest.session.autenticado = true;
+		var iniciaJogo = new application.app.models.jogoDAO(this._connection);  
+		iniciaJogo.iniciaJogo(usuario, response);
+		return ;
 	});
+	response.render("/", {validacao :{msg: "Usuário não cadastrado"}});
 }
 
 module.exports = function(){
