@@ -16,4 +16,9 @@ module.exports = function(application){
 		application.app.controllers.jogo.sair(application, request, response);
 	});
 
+	application.post("/acao_aldeao", function(request, response){
+		application.app.controllers.jogo.acao_aldeao(application, request, response);
+	});	
+
+
 }
