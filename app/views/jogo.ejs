@@ -16,7 +16,7 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$("#btnSair").click(
-					function(){window.location.href="/";}
+					function(){window.location.href="sair";}
 				);
   
 				$("#btnAldeoes").click(
@@ -63,29 +63,29 @@
 	    	
 			<div class="row">
 	    		<div class="col-sm-3 casa">
-					<img src="images/casa_<%= parametro[0].casa %>.jpg" />
+					<img src="images/casa_<%= parametro.casa %>.jpg" />
 				</div>
 
 	    		<div class="col-sm-9">
 					<div class="row barra-superior">
 						<div class="col-sm-2"> 
 							<img src="images/habilidades/temor.jpg" title="Temor" alt="Temor" />
-							<span><%= parametro[0].temor %></span>
+							<span><%= parametro.temor %></span>
 						</div>
 						
 						<div class="col-sm-2"> 
 							<img src="images/habilidades/sabedoria.jpg" title="Sabedoria" alt="Sabedoria"/>
-							<span><%= parametro[0].sabedoria %></span>
+							<span><%= parametro.sabedoria %></span>
 						</div>
 						
 						<div class="col-sm-2"> 
 							<img src="images/habilidades/comercio.jpg" title="Comércio" alt="Comércio"/>
-							<span><%= parametro[0].comercio %></span>
+							<span><%= parametro.comercio %></span>
 						</div>
 						
 						<div class="col-sm-2"> 
 							<img src="images/habilidades/magia.jpg" title="Magia" alt="Magia"/>
-							<span><%= parametro[0].magia %></span>
+							<span><%= parametro.magia %></span>
 						</div>
 					</div>
 				</div>
@@ -116,7 +116,7 @@
 					
 					<div class="col-sm-2">
 						<img src="images/outros/moeda.jpg" title="Moeda" alt="Moeda"/>
-						<span><%= parametro[0].moeda  %></span>
+						<span><%= parametro.moeda  %></span>
 					</div>
 					
 				</div>

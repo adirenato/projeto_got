@@ -1,15 +1,27 @@
 module.exports.pergaminho = function(application, request, response){
-	response.render("pergaminhos");
+	if(request.session.autenticado)
+		response.render("pergaminhos")
+	else
+		response.render("index", {validacao: {}});
+	
 }
 
 module.exports.aldeoes = function(application, request, response){
-	response.render("aldeoes");
+    if(request.session.autenticado)
+		response.render("aldeoes")
+	else
+		response.render("index", {validacao: {}});
 }
 
 module.exports.jogo = function(application, request, response){
 	if(request.session.autenticado)
 	{
-		response.send("Usuário pode prosseguir para o processo de inícia o jogo");	
+		var conn = application.get('connection');
+		var jogoDAO = new application.app.models.jogoDAO(conn);
+		var obj  = {usuario : request.session.usuario, senha: request.session.senha};
+		//jogoDAO.login(obj, response);
+		jogoDAO.iniciaJogo(obj, response);
+	
 	}else{
 		response.send("Usuário não autenticado");	
 	}
@@ -17,8 +29,7 @@ module.exports.jogo = function(application, request, response){
 }
 
 module.exports.sair = function(application, request, response){
-	request.session.destroy();
-	response.render("/", {validacao:{}});
+	response.render("index", {validacao:{}});
 }
 
 module.exports.login = function(application, request, response){
@@ -36,6 +47,7 @@ module.exports.login = function(application, request, response){
 	
 	var conn = application.get('connection');
 	var jogoDAO = new application.app.models.jogoDAO(conn);
-	jogoDAO.login(bodyparse, request, response);
+	jogoDAO.login(bodyparse, request);
+	jogoDAO.iniciaJogo(bodyparse, response);
 
 }
