@@ -1,8 +1,10 @@
 module.exports.pergaminho = function(application, request, response){
-	if(request.session.autenticado)
-		response.render("pergaminhos")
-	else
-		response.render("index", {validacao: {}});
+	if(request.session.autenticado  == false)
+	response.render("index", {validacao: {}});
+
+	var conn = application.get('connection');
+	models = new application.app.models.jogoDAO(conn);
+	models.getAcaoUsuario({usuario : request.session.usuario}, response);
 	
 }
 
@@ -10,7 +12,7 @@ module.exports.aldeoes = function(application, request, response){
     if(request.session.autenticado)
 		response.render("aldeoes")
 	else
-		response.render("index", {validacao: {}});
+		response.render("index", {validacao: {}});	
 }
 
 module.exports.acao_aldeao = function(application, request, response){
@@ -21,20 +23,22 @@ module.exports.acao_aldeao = function(application, request, response){
 	var valida = request.validationErrors();
 
 	if(valida){
-		response.redirect("/jogo?haserro=E");
+		response.redirect("/jogo?hasmsg=E");
 		return;
 	}
 
+//	console.log(bodyparse);
+
 	var conn = application.get('connection');
 	var jogoDAO = new application.app.models.jogoDAO(conn);
-	var date = Date();
+	var date = new Date();
 	var tempo = null;
 	
-	switch (body.acao){
-		case 1 : tempo = 1 * 60 * 6000;
-		case 2 : tempo = 2 * 60 * 6000;
-		case 3 : tempo = 5 * 60 * 6000;
-		case 4 : tempo = 5 * 60 * 6000;
+	switch (parseInt(bodyparse.acao)){
+		case 1 : tempo = (1 * 60 * 60000);break;
+		case 2 : tempo = 2 * 60 * 60000;break;
+		case 3 : tempo = 5 * 60 * 60000;break;
+		case 4 : tempo = 5 * 60 * 60000;break;
 	}
 
 	tempo = date.getDate() + tempo;
@@ -49,12 +53,11 @@ module.exports.jogo = function(application, request, response){
 	if(request.session.autenticado)
 	{
 		var hasMsg =  request.query.hasmsg;
-		
-       
+
 		var conn = application.get('connection');
 		var jogoDAO = new application.app.models.jogoDAO(conn);
 		var obj  = {usuario : request.session.usuario, senha: request.session.senha};
-		//jogoDAO.login(obj, response);
+		console.log(hasMsg);
 		jogoDAO.iniciaJogo(obj, response, hasMsg);
 	
 	}else{

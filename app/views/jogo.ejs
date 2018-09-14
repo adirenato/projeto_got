@@ -39,7 +39,8 @@
 					   	  url: "/pergaminho",
 					   	  method:"get",
 					   	  success: function(data){
-					   	  	 $("#panel_acoes").html(data);
+								  $("#panel_acoes").html(data);
+								  atualizar();
 					   	  }
 					   });
 					}
@@ -96,7 +97,7 @@
 				<div class="col-sm-9">
 					<div class="acoes" id="panel_acoes">
 						<% if (hasMsg != ""){ %>
-							
+							<script>alert(hasMsg);</script>
 							<% if(hasMsg == 'E'){ %>
 							<div class="alert alert-danger">
 								<strong>Erro!</strong> Você esqueceu de preecher algum campo, tente novamente.

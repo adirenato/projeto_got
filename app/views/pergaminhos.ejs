@@ -1,10 +1,20 @@
 <div id="pergaminhos">					
 	<h3>Pergaminhos</h3>
-	
 	<ul>
-		<li>1 enforcamento(s) programado - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
-		<li>2 aldeão(ões) em treinamento de magia - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
-		<li>1 aldeão(ões) em treinamento de história - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
-		<li>5 aldeão(ões) coletando recursos - <small>restam 00000 segundos - <a href="#">revogar ordem</a></small></li>
+	<% 
+	  var output = '';
+	  var date   = new Date();
+	  for(var i=0; i < acaoUsuario.length ; i++){
+		auxDate =  acaoUsuario[i].termina_em - date.getDate();
+		switch(parseInt(acaoUsuario[i].acao)){
+			case 1 : output = " aldeão(ões) coletando recursos " ; break;
+			case 2 : output = " enforcamento(s) programado " ; break;
+			case 3 : output = " aldeão(ões) em treinamento de história "; break;
+			case 4 : output = " aldeão(ões) em treinamento de magia "; break;
+		}
+   %>
+		<li><%=acaoUsuario[i].quantidade + output%> - <small>restam  <span class="segundos"><%= auxDate %></span> segundos - <a href="#">revogar ordem</a></small> </li>
+
+	 <%}%>
 	</ul>
 </div>
